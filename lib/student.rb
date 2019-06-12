@@ -30,7 +30,8 @@ class Student
     WHERE name = ?
     SQL
 
-    row = DB[:conn].execute(sql,name)[0]
+    row = DB[:conn].execute(sql,name)[0] #need to reference first element '[0]' because what SQL returns is an array of an array
+    #even if there is just one row that is returned, we still need to call [0] or flatten it 
 
     self.new_from_db(row)
     # find the student in the database given a name
@@ -105,7 +106,7 @@ class Student
 
     rows = DB[:conn].execute(sql,x)
     rows.map{|row| self.new_from_db(row)}
-    
+
   end
 
   def save
